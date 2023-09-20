@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 class Login {
     // 註冊新帳號
