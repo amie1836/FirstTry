@@ -126,6 +126,33 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         這是商品的詳細描述。
         商品描述的第二行。
         商品描述的第三行。
+        8
+        8
+        8
+        8
+        
+        8
+        8
+        8
+        8
+        8
+        88
+        8
+        8
+        8
+        8
+        8
+        8
+        8
+        8
+        8
+        8
+        8
+        
+        
+        8
+        8
+        8
         """
         
         // 設置商品詳情的內容
@@ -137,7 +164,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
             productDescriptionTextView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 16),
             productDescriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             productDescriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            productDescriptionTextView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -16) // 可選：限制底部間距
+            productDescriptionTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16) // 可選：限制底部間距
         ])
         
 
