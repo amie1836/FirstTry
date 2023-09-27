@@ -13,6 +13,11 @@
 		7D138ECC2ABAE63D00743828 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 7D138ECB2ABAE63D00743828 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		7D138ECE2ABAE63D00743828 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7D138ECD2ABAE63D00743828 /* FirebaseDatabase */; };
 		7D138ED02ABAE63D00743828 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7D138ECF2ABAE63D00743828 /* FirebaseDatabaseSwift */; };
+		7D138ED22ABC1F6F00743828 /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED12ABC1F6F00743828 /* PurchaseView.swift */; };
+		7D138ED42ABC339000743828 /* PurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED32ABC339000743828 /* PurchaseVC.swift */; };
+		7D138ED62ABC506000743828 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED52ABC506000743828 /* TestVC.swift */; };
+		7D138ED82ABC537100743828 /* AnimateTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED72ABC537100743828 /* AnimateTransition.swift */; };
+		7D138EDA2ABC545500743828 /* AnimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED92ABC545500743828 /* AnimateController.swift */; };
 		7D6575A42AA9B6A000245E7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A32AA9B6A000245E7E /* AppDelegate.swift */; };
 		7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A52AA9B6A000245E7E /* SceneDelegate.swift */; };
 		7D6575A82AA9B6A000245E7E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A72AA9B6A000245E7E /* TestViewController.swift */; };
@@ -31,6 +36,11 @@
 
 /* Begin PBXFileReference section */
 		7D138EC42ABAE51500743828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7D138ED12ABC1F6F00743828 /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
+		7D138ED32ABC339000743828 /* PurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseVC.swift; sourceTree = "<group>"; };
+		7D138ED52ABC506000743828 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		7D138ED72ABC537100743828 /* AnimateTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateTransition.swift; sourceTree = "<group>"; };
+		7D138ED92ABC545500743828 /* AnimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateController.swift; sourceTree = "<group>"; };
 		7D6575A02AA9B6A000245E7E /* Mr.GoodBean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mr.GoodBean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6575A32AA9B6A000245E7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6575A52AA9B6A000245E7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +117,11 @@
 				7D6575A72AA9B6A000245E7E /* TestViewController.swift */,
 				7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */,
 				7DCE5DBB2AB944B300EBF851 /* ProductDetailVC.swift */,
+				7D138ED12ABC1F6F00743828 /* PurchaseView.swift */,
+				7D138ED32ABC339000743828 /* PurchaseVC.swift */,
+				7D138ED52ABC506000743828 /* TestVC.swift */,
+				7D138ED72ABC537100743828 /* AnimateTransition.swift */,
+				7D138ED92ABC545500743828 /* AnimateController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -216,10 +231,15 @@
 				7DE39CAD2AAFFE9600B4A5E9 /* Login.swift in Sources */,
 				7D6575A82AA9B6A000245E7E /* TestViewController.swift in Sources */,
 				7D6575A42AA9B6A000245E7E /* AppDelegate.swift in Sources */,
+				7D138ED22ABC1F6F00743828 /* PurchaseView.swift in Sources */,
+				7D138ED82ABC537100743828 /* AnimateTransition.swift in Sources */,
 				7DE39CAB2AAF040000B4A5E9 /* DataFromFireBase.swift in Sources */,
+				7D138EDA2ABC545500743828 /* AnimateController.swift in Sources */,
+				7D138ED42ABC339000743828 /* PurchaseVC.swift in Sources */,
 				7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */,
 				7DCE5DBC2AB944B300EBF851 /* ProductDetailVC.swift in Sources */,
 				7D6575C82AA9BFF400245E7E /* StoreDetailVC.swift in Sources */,
+				7D138ED62ABC506000743828 /* TestVC.swift in Sources */,
 				7D915BCA2AAAFC9000910D5C /* FirebaseCRUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

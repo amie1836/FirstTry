@@ -22,6 +22,14 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
             stackView.spacing = 16
             return stackView
         }()
+    
+    //購物車按鈕
+//    let shopButton: UIButton = {
+//        let button = UIButton(type: .custom)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.image(for: .normal)
+//        return button
+//    }()
     // 商品敘述
         let productNameLabel: UILabel = {
             let label = UILabel()
@@ -131,26 +139,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         8
         8
         
-        8
-        8
-        8
-        8
-        8
-        88
-        8
-        8
-        8
-        8
-        8
-        8
-        8
-        8
-        8
-        8
-        8
         
-        
-        8
         8
         8
         """
@@ -208,6 +197,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 imagePicker.delegate = self
                 present(imagePicker, animated: true, completion: nil)
     }
+   
     // 實現UIImagePickerControllerDelegate方法，處理選擇照片後的回調
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let selectedImage = info[.originalImage] as? UIImage {
@@ -219,6 +209,33 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true, completion: nil)
         }
+    
+    
+    @IBAction func cartBtnPress(_ sender: Any) {
+       
+        //創造view實例以及貼上
+        let purchaseView = PurchaseView()
+        // 設置購買介面視圖的初始位置，將其放在屏幕下方
+        purchaseView.frame.origin.y = self.view.frame.height
+        self.view.addSubview(purchaseView)
+
+        UIView.animate(withDuration: 0.5) {
+
+            // 設置購買介面視圖的新位置，使其顯示在屏幕上
+            purchaseView.frame.origin.y = self.view.frame.height - purchaseView.frame.height
+        }
+        if self.productImageView != nil {
+            purchaseView.productImageView.image = self.productImageView.image
+        }
+//        let purchaseVC = PurchaseVC()
+//        present(purchaseVC, animated: true)
+        
+//        let customPopup = CustomPopupViewController(title: "警告～～～", message: "這是一個自定義警告視圖。")
+//
+//        customPopup.showAlert(in: self)
+//
+        
+    }
     
     
     /*
