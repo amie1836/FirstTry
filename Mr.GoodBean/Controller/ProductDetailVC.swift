@@ -122,7 +122,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 ])
 
                 // 在這裡設置商品照片、商品敘述、價格和存貨的內容
-                productImageView.image = UIImage(named: "your_product_image")
+                productImageView.image = UIImage(named: "product1.jpeg")
                 productNameLabel.text = "商品名稱"
                 productDescriptionLabel.text = "商品特色，商品概述，商品說明"
                 productPriceLabel.text = "價格：$99.99"

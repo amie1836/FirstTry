@@ -26,6 +26,13 @@
 		7D6575B02AA9B6A400245E7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6575AE2AA9B6A400245E7E /* LaunchScreen.storyboard */; };
 		7D6575C82AA9BFF400245E7E /* StoreDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */; };
 		7D915BCA2AAAFC9000910D5C /* FirebaseCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D915BC92AAAFC9000910D5C /* FirebaseCRUD.swift */; };
+		7DB872FF2AC55147002A10E8 /* coffeeShop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */; };
+		7DB873012AC551C1002A10E8 /* product1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873002AC551C1002A10E8 /* product1.jpeg */; };
+		7DB873032AC7DBC2002A10E8 /* product2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873022AC7DBC2002A10E8 /* product2.png */; };
+		7DB873072AC7EC91002A10E8 /* RoyHappy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */; };
+		7DB873082AC7EC91002A10E8 /* RoyYa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873052AC7EC90002A10E8 /* RoyYa.jpg */; };
+		7DB873092AC7EC91002A10E8 /* Roy&Wong.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */; };
+		7DB8730D2AC819E9002A10E8 /* TestDownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB8730C2AC819E9002A10E8 /* TestDownloadVC.swift */; };
 		7DCE5DB52AB9381100EBF851 /* white_cat_and_dog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */; };
 		7DCE5DB72AB9382300EBF851 /* Genshin_activate.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */; };
 		7DCE5DBA2AB940C600EBF851 /* women.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DCE5DB92AB940C500EBF851 /* women.jpg */; };
@@ -51,6 +58,13 @@
 		7D6575B12AA9B6A400245E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailVC.swift; sourceTree = "<group>"; };
 		7D915BC92AAAFC9000910D5C /* FirebaseCRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCRUD.swift; sourceTree = "<group>"; };
+		7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffeeShop.jpg; sourceTree = "<group>"; };
+		7DB873002AC551C1002A10E8 /* product1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = product1.jpeg; sourceTree = "<group>"; };
+		7DB873022AC7DBC2002A10E8 /* product2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = product2.png; sourceTree = "<group>"; };
+		7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RoyHappy.jpg; sourceTree = "<group>"; };
+		7DB873052AC7EC90002A10E8 /* RoyYa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RoyYa.jpg; sourceTree = "<group>"; };
+		7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Roy&Wong.jpg"; sourceTree = "<group>"; };
+		7DB8730C2AC819E9002A10E8 /* TestDownloadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDownloadVC.swift; sourceTree = "<group>"; };
 		7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = white_cat_and_dog.jpg; sourceTree = "<group>"; };
 		7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Genshin_activate.jpeg; sourceTree = "<group>"; };
 		7DCE5DB92AB940C500EBF851 /* women.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = women.jpg; sourceTree = "<group>"; };
@@ -107,6 +121,12 @@
 				7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */,
 				7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */,
 				7DCE5DB92AB940C500EBF851 /* women.jpg */,
+				7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */,
+				7DB873002AC551C1002A10E8 /* product1.jpeg */,
+				7DB873022AC7DBC2002A10E8 /* product2.png */,
+				7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */,
+				7DB873052AC7EC90002A10E8 /* RoyYa.jpg */,
+				7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */,
 			);
 			path = Mr.GoodBean;
 			sourceTree = "<group>";
@@ -115,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				7D6575A72AA9B6A000245E7E /* TestViewController.swift */,
+				7DB8730C2AC819E9002A10E8 /* TestDownloadVC.swift */,
 				7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */,
 				7DCE5DBB2AB944B300EBF851 /* ProductDetailVC.swift */,
 				7D138ED12ABC1F6F00743828 /* PurchaseView.swift */,
@@ -130,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				7DE39CAA2AAF040000B4A5E9 /* DataFromFireBase.swift */,
-				7DE39CAC2AAFFE9600B4A5E9 /* Login.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				7D915BC92AAAFC9000910D5C /* FirebaseCRUD.swift */,
+				7DE39CAC2AAFFE9600B4A5E9 /* Login.swift */,
 			);
 			path = Communicator;
 			sourceTree = "<group>";
@@ -212,12 +233,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6575B02AA9B6A400245E7E /* LaunchScreen.storyboard in Resources */,
+				7DB873032AC7DBC2002A10E8 /* product2.png in Resources */,
+				7DB873012AC551C1002A10E8 /* product1.jpeg in Resources */,
 				7DCE5DBA2AB940C600EBF851 /* women.jpg in Resources */,
 				7D6575AD2AA9B6A400245E7E /* Assets.xcassets in Resources */,
+				7DB873092AC7EC91002A10E8 /* Roy&Wong.jpg in Resources */,
 				7DCE5DB52AB9381100EBF851 /* white_cat_and_dog.jpg in Resources */,
+				7DB873082AC7EC91002A10E8 /* RoyYa.jpg in Resources */,
 				7DCE5DB72AB9382300EBF851 /* Genshin_activate.jpeg in Resources */,
+				7DB872FF2AC55147002A10E8 /* coffeeShop.jpg in Resources */,
 				7D6575AB2AA9B6A000245E7E /* Main.storyboard in Resources */,
 				7D138EC52ABAE51500743828 /* GoogleService-Info.plist in Resources */,
+				7DB873072AC7EC91002A10E8 /* RoyHappy.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +265,7 @@
 				7D138ED42ABC339000743828 /* PurchaseVC.swift in Sources */,
 				7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */,
 				7DCE5DBC2AB944B300EBF851 /* ProductDetailVC.swift in Sources */,
+				7DB8730D2AC819E9002A10E8 /* TestDownloadVC.swift in Sources */,
 				7D6575C82AA9BFF400245E7E /* StoreDetailVC.swift in Sources */,
 				7D138ED62ABC506000743828 /* TestVC.swift in Sources */,
 				7D915BCA2AAAFC9000910D5C /* FirebaseCRUD.swift in Sources */,

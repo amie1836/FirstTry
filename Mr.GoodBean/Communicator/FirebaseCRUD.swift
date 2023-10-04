@@ -75,7 +75,23 @@ class FirebaseCRUD {
     }
 
 
-
+   // 查詢
+    func query(child1:String, childForSearch:String, Equal:String, completion: @escaping ([String: Any]) -> Void)  {
+        Database.database().reference().child(child1).queryOrdered(byChild: childForSearch).queryEqual(toValue: Equal).observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.exists() {
+                if let data = snapshot.value as? [String: Any] {
+                    // 处理数据
+                    completion(data)
+                } else {
+                    completion([:])
+            }
+            } else {
+                // 数据不存在
+                print("未找到特定数据")
+            }
+        }
+        
+    }
     
     
 }
