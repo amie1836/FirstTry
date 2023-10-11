@@ -36,9 +36,9 @@ class TestDownloadVC: UIViewController {
                     // 处理数据
                     for (userId, userData) in data {
                         if let userDataDict = userData as? [String: Any] {
-                            print("User ID: \(userId)")
-                            print("User Data: \(userDataDict)")
-                            DataFromFireBase.shared.userKey = userId
+//                            print("User ID: \(userId)")
+//                            print("User Data: \(userDataDict)")
+                            DataFromFireBase.shared.currentUserKey = userId
                             DataFromFireBase.shared.currentUser = userDataDict
                         }
                     }
@@ -47,10 +47,18 @@ class TestDownloadVC: UIViewController {
                 // 数据不存在
                 print("未找到特定数据")
             }
-            FirebaseCRUD.shared.query(child1: "products", childForSearch: "storeID", Equal: DataFromFireBase.shared.userKey) { products in
+            FirebaseCRUD.shared.query(child1: "products", childForSearch: "storeID", Equal: DataFromFireBase.shared.currentUserKey) { products in
                 DataFromFireBase.shared.productOfUser = products
                 DataFromFireBase.shared.productsKeys = Array(products.keys)
+                print("登入商家產品下載完畢")
             }
+            
+        }
+        
+        FirebaseCRUD.shared.query(child1: "users", childForSearch: "storerole", Equal: "店家") { dict in
+            DataFromFireBase.shared.allStoreDataDict = dict
+            DataFromFireBase.shared.allStoreID = Array(dict.keys)
+            print("所有商家資料下載完畢")
         }
 //        FirebaseCRUD.shared.query(child1: "products", childForSearch: "storeID", Equal: DataFromFireBase.shared.userKey) { products in
 //            DataFromFireBase.shared.productOfUser = products
@@ -61,8 +69,8 @@ class TestDownloadVC: UIViewController {
     @IBAction func goBtnPressed(_ sender: Any) {
         
         let storyboard = self.storyboard
-        let storeDetailVC = storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC")
-        self.view.window?.rootViewController = storeDetailVC
+        let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreListVC")
+        self.view.window?.rootViewController = storeListVC
         
         //productData
 //        var productKeyArray = [String]()

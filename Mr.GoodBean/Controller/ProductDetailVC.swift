@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseCore
+import FirebaseDatabase
 
 class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
    
     @IBOutlet weak var cameraBtn: UIBarButtonItem!
+    
+    //資料
+    var productStruct = DataFromFireBase.Product(name: "商品名稱", price: 0, amount: 0, descriptionShort: "商品概述", descriptionLong: """
+        這是商品的詳細描述。
+        商品描述的第二行。
+        商品描述的第三行。
+        """, picture: "", storeID: "", timestamp: 0)
+    
+    var pictureData = Data()
+    var selectedProductId = String()
     
     var productImageView : UIImageView!
     
@@ -19,36 +32,38 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
             let stackView = UIStackView()
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .vertical
-            stackView.spacing = 16
+            stackView.spacing = 20
             return stackView
         }()
     
-    //購物車按鈕
-//    let shopButton: UIButton = {
-//        let button = UIButton(type: .custom)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.image(for: .normal)
-//        return button
-//    }()
+    
     // 商品敘述
+    
         let productNameLabel: UILabel = {
             let label = UILabel()
+//            label.widthAnchor.constraint(equalToConstant: 300).isActive = true
             label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 1
+            label.lineBreakMode = .byWordWrapping
             label.font = UIFont.boldSystemFont(ofSize:  24)
+            //label.attributedText = NSAttributedString.DocumentReadingOptionKey
             return label
         }()
 
         let productDescriptionLabel: UILabel = {
             let label = UILabel()
+            //label.widthAnchor.constraint(equalToConstant: 380).isActive = true
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.numberOfLines = 2
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
             label.font = UIFont.systemFont(ofSize: 16)
             return label
         }()
 
         let productPriceLabel: UILabel = {
             let label = UILabel()
+            label.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            label.numberOfLines = 1
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = UIFont.systemFont(ofSize: 17)
             return label
@@ -56,6 +71,8 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
 
         let productInventoryLabel: UILabel = {
             let label = UILabel()
+            label.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            label.numberOfLines = 1
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = UIFont.systemFont(ofSize: 17)
             return label
@@ -69,18 +86,67 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         textView.isEditable = false // 避免編輯
         return textView
     }()
+    
+    // MARK: 購物車的顯示
+    // Pickerview內容
+    var arrayForPicker = [String]()
+    var aButtonPressed = 0
+    // cart資料
+    let cartRef = Database.database().reference().child("carts")
+    var cartStruct = DataFromFireBase.Cart(user_id: "\(DataFromFireBase.shared.currentUserKey)",product_id: "error", spec: "error", grind: "error", amount: 0, timestamp: 0)
+    
+    // 選擇樣式的畫面
+    // PickerView for 選項
+    let pickerView : UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
+    // 讓pickerView像鍵盤彈出的隱藏texyView
+    let textFieldForPicker : UITextField = {
+        let textField = UITextField()
+        textField.isHidden = true
+        return textField
+    }()
+    
+    // PickerView的ToolBar
+    let pickerViewToolBar : UIToolbar = {
+        let toolBar = UIToolbar()
+        //print("\(toolBar.frame.height)")
+//        let leftBtn = UIBarButtonItem(title: "退出", style: .plain, target: ProductDetailVC.self, action: #selector(toolBarCancelButtonTapped))
+//        let rightBtn = UIBarButtonItem(title: "確認", style: .plain, target: ProductDetailVC.self, action: #selector(toolBarConfirmButtonTapped))
+//        let flexibleSpace = UIBarButtonItem(systemItem: .flexibleSpace)
+//        toolBar.setItems([leftBtn,flexibleSpace,rightBtn], animated: false)
+        toolBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        return toolBar
+    }()
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // For用戶
+        cameraBtn.isHidden = true
+        
+        //轉檔圖片Base64
+         let base64Struct = DataFromFireBase.Base64ToIamge(base64String: productStruct.picture)
+        if let ImageData = base64Struct.toImageData() {
+            pictureData = ImageData
+        }
+        
         // 添加自定義按鈕到導航列
-        self.navigationItem.rightBarButtonItem = self.cameraBtn
+//        self.navigationItem.rightBarButtonItem = self.cameraBtn
            
+        self.navigationItem.setRightBarButton(cameraBtn, animated: true)
         // 禁止視圖延伸到導航列下方
 //            edgesForExtendedLayout = []
         view.backgroundColor = .white
         
         //ImageView實作
+        
         productImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
         productImageView.contentMode = .scaleAspectFill
         productImageView.clipsToBounds = true
@@ -90,6 +156,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         
         // 添加商品敘述
         // 創建一個垂直的 UIStackView 包含商品名稱、概述和垂直對齊的價格和存貨數量
+        
                 let verticalStackView = UIStackView(arrangedSubviews: [productNameLabel, productDescriptionLabel])
                 verticalStackView.translatesAutoresizingMaskIntoConstraints = false
                 verticalStackView.axis = .vertical
@@ -115,37 +182,29 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
                 view.addSubview(mainStackView)
 
                 // 設置主 Stack View 的約束
-                NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate([
                     mainStackView.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 16),
                     mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//                    mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+                    
+                    mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
                 ])
-
+        
+                // 設置 Stack View 內容物的約束
+                NSLayoutConstraint.activate([
+                    productNameLabel.widthAnchor.constraint(equalToConstant: 280),
+                    productDescriptionLabel.widthAnchor.constraint(equalToConstant: 324)
+                ])
+        
                 // 在這裡設置商品照片、商品敘述、價格和存貨的內容
-                productImageView.image = UIImage(named: "product1.jpeg")
-                productNameLabel.text = "商品名稱"
-                productDescriptionLabel.text = "商品特色，商品概述，商品說明"
-                productPriceLabel.text = "價格：$99.99"
-                productInventoryLabel.text = "存貨：100 個"
+                productImageView.image = UIImage(data: pictureData)
+                productNameLabel.text = productStruct.name
+                productDescriptionLabel.text = productStruct.descriptionShort
+                productPriceLabel.text = "價格：\(productStruct.price)"
+                productInventoryLabel.text = "庫存：\(productStruct.amount)"
             
-        
-         // 商品詳情內容
-        let productDescription = """
-        這是商品的詳細描述。
-        商品描述的第二行。
-        商品描述的第三行。
-        8
-        8
-        8
-        8
-        
-        
-        8
-        8
-        """
-        
+       
         // 設置商品詳情的內容
-        productDescriptionTextView.text = productDescription
+        productDescriptionTextView.text = productStruct.descriptionLong
         view.addSubview(productDescriptionTextView)
 
         // 設置商品詳情的 UITextView 的約束
@@ -153,14 +212,12 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
             productDescriptionTextView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 16),
             productDescriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             productDescriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            productDescriptionTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16) // 可選：限制底部間距
+            productDescriptionTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
         
-
-
-
-
-
+        // pickerView dataSource
+        pickerView.dataSource = self
+        pickerView.delegate = self
     }
 
     
@@ -187,6 +244,12 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         print("mainStackView 的 y 座標：\(y)")
         print("mainStackView 的寬度：\(width)")
         print("mainStackView 的高度：\(height)")
+        
+        // ToolBar BarItem設置
+        let leftBtn = UIBarButtonItem(title: "退出", style: .plain, target: self, action: #selector(toolBarCancelButtonTapped))
+        let rightBtn = UIBarButtonItem(title: "確認", style: .plain, target:  self, action: #selector(toolBarConfirmButtonTapped))
+        let flexibleSpace = UIBarButtonItem(systemItem: .flexibleSpace)
+        pickerViewToolBar.setItems([leftBtn,flexibleSpace,rightBtn], animated: false)
     }
 
     
@@ -217,6 +280,10 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         let purchaseView = PurchaseView()
         // 設置購買介面視圖的初始位置，將其放在屏幕下方
         purchaseView.frame.origin.y = self.view.frame.height
+        //purchaseView.ViewController = self
+        purchaseView.delegate = self
+        
+       // self.addChild(<#T##childController: UIViewController##UIViewController#>)
         self.view.addSubview(purchaseView)
 
         UIView.animate(withDuration: 0.5) {
@@ -224,8 +291,13 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
             // 設置購買介面視圖的新位置，使其顯示在屏幕上
             purchaseView.frame.origin.y = self.view.frame.height - purchaseView.frame.height
         }
-        if self.productImageView != nil {
+        
+        // 簡單傳值
+        if self.productImageView != nil
+        {
             purchaseView.productImageView.image = self.productImageView.image
+            purchaseView.nameLabel.text = "\(productStruct.name)"
+            purchaseView.priceLabel.text = "NT$\(productStruct.price)"
         }
 //        let purchaseVC = PurchaseVC()
 //        present(purchaseVC, animated: true)
@@ -247,5 +319,116 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         // Pass the selected object to the new view controller.
     }
     */
+//    @objc func toolBarConfirmButtonTapped() {
+//        let row = pickerView.selectedRow(inComponent: 0)
+//         switch aButtonPressed {
+//         case 1 :
+//            cartStruct.spec = arrayForPicker[row]
+//         case 2 :
+//             cartStruct.grind = arrayForPicker[row]
+//         case 3 :
+//             if let amount = Int(arrayForPicker[row]) {
+//                 cartStruct.amount = amount
+//             }
+//         case 4 :
+//             cartStruct.cartStructToDict { dict in
+//                 self.cartRef.setValue(dict) { error, _ in
+//                     if let error = error {
+//                         print("Error upload cart: \(error)")
+//                     } else {
+//                         print("Cart upload successfully")
+//                     }
+//                 }
+//             }
+//
+//
+//         default :
+//                aButtonPressed = 0
+//             }
+//             self.view.endEditing(true)
+//         }
+//
+//    @objc func toolBarCancelButtonTapped() {
+//        self.view.endEditing(true)
+//     }
+ }
+    
 
+
+extension ProductDetailVC: purchaseViewDelegate {
+    // PickerView 的玩意兒
+    func openPickerView(arrayForPicker:[String],aButtonPressed: Int) {
+        self.arrayForPicker = arrayForPicker
+        self.view.addSubview(pickerView)
+        // NSLayout
+        pickerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        pickerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        pickerView.topAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true // 初始位置在畫面底部
+        pickerView.heightAnchor.constraint(equalToConstant: pickerView.frame.height).isActive = true
+        
+        // textViewForPicker放進來
+        self.view.addSubview(textFieldForPicker)
+        textFieldForPicker.inputView = pickerView
+        // toolBar放進來
+        self.view.addSubview(pickerViewToolBar)
+        pickerViewToolBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        pickerViewToolBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        pickerView.topAnchor.constraint(equalTo: pickerView.bottomAnchor).isActive = true
+        textFieldForPicker.inputAccessoryView = pickerViewToolBar
+        textFieldForPicker.becomeFirstResponder()
+        self.aButtonPressed = aButtonPressed
+    }
+ 
+    @objc func toolBarConfirmButtonTapped() {
+    let row = pickerView.selectedRow(inComponent: 0)
+     switch aButtonPressed {
+     case 1 :
+        cartStruct.spec = arrayForPicker[row]
+     case 2 :
+         cartStruct.grind = arrayForPicker[row]
+     case 3 :
+         if let amount = Int(arrayForPicker[row]) {
+             cartStruct.amount = amount
+         }
+     case 4 :
+         cartStruct.product_id = selectedProductId
+         cartStruct.cartStructToDict { dict in
+             self.cartRef.childByAutoId().setValue(dict) { error, _ in
+                 if let error = error {
+                     print("Error upload cart: \(error)")
+                 } else {
+                     print("Cart upload successfully")
+                 }
+             }
+         }
+         
+     default :
+            aButtonPressed = 0
+         }
+         self.view.endEditing(true)
+     }
+
+@objc func toolBarCancelButtonTapped() {
+    self.view.endEditing(true)
+ }
+}
+
+extension ProductDetailVC : UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1 // 一個組件
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return arrayForPicker.count // 選項的數量
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return arrayForPicker[row] // 返回選項的標題
+    }
+
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        // 用戶選擇的選項
+//        let selectedOption = arrayForPicker[row]
+//        // 在這裡處理選擇，例如將其存儲在變數中
+//    }
 }

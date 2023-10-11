@@ -18,6 +18,7 @@
 		7D138ED62ABC506000743828 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED52ABC506000743828 /* TestVC.swift */; };
 		7D138ED82ABC537100743828 /* AnimateTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED72ABC537100743828 /* AnimateTransition.swift */; };
 		7D138EDA2ABC545500743828 /* AnimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D138ED92ABC545500743828 /* AnimateController.swift */; };
+		7D3D462E2ACD531E00A617EE /* product3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D3D462D2ACD531D00A617EE /* product3.jpg */; };
 		7D6575A42AA9B6A000245E7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A32AA9B6A000245E7E /* AppDelegate.swift */; };
 		7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A52AA9B6A000245E7E /* SceneDelegate.swift */; };
 		7D6575A82AA9B6A000245E7E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575A72AA9B6A000245E7E /* TestViewController.swift */; };
@@ -25,6 +26,10 @@
 		7D6575AD2AA9B6A400245E7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D6575AC2AA9B6A400245E7E /* Assets.xcassets */; };
 		7D6575B02AA9B6A400245E7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6575AE2AA9B6A400245E7E /* LaunchScreen.storyboard */; };
 		7D6575C82AA9BFF400245E7E /* StoreDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */; };
+		7D85357D2AD66BD3007F11E7 /* UserDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D85357C2AD66BD3007F11E7 /* UserDetailVC.swift */; };
+		7D8535822AD6745E007F11E7 /* StoryListCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8535802AD6745E007F11E7 /* StoryListCellTableViewCell.swift */; };
+		7D8535832AD6745E007F11E7 /* StoryListCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D8535812AD6745E007F11E7 /* StoryListCellTableViewCell.xib */; };
+		7D8535872AD679DD007F11E7 /* StoreListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8535862AD679DD007F11E7 /* StoreListVC.swift */; };
 		7D915BCA2AAAFC9000910D5C /* FirebaseCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D915BC92AAAFC9000910D5C /* FirebaseCRUD.swift */; };
 		7DB872FF2AC55147002A10E8 /* coffeeShop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */; };
 		7DB873012AC551C1002A10E8 /* product1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7DB873002AC551C1002A10E8 /* product1.jpeg */; };
@@ -48,6 +53,7 @@
 		7D138ED52ABC506000743828 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		7D138ED72ABC537100743828 /* AnimateTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateTransition.swift; sourceTree = "<group>"; };
 		7D138ED92ABC545500743828 /* AnimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateController.swift; sourceTree = "<group>"; };
+		7D3D462D2ACD531D00A617EE /* product3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = product3.jpg; sourceTree = "<group>"; };
 		7D6575A02AA9B6A000245E7E /* Mr.GoodBean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mr.GoodBean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6575A32AA9B6A000245E7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6575A52AA9B6A000245E7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +63,10 @@
 		7D6575AF2AA9B6A400245E7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D6575B12AA9B6A400245E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailVC.swift; sourceTree = "<group>"; };
+		7D85357C2AD66BD3007F11E7 /* UserDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailVC.swift; sourceTree = "<group>"; };
+		7D8535802AD6745E007F11E7 /* StoryListCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListCellTableViewCell.swift; sourceTree = "<group>"; };
+		7D8535812AD6745E007F11E7 /* StoryListCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoryListCellTableViewCell.xib; sourceTree = "<group>"; };
+		7D8535862AD679DD007F11E7 /* StoreListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListVC.swift; sourceTree = "<group>"; };
 		7D915BC92AAAFC9000910D5C /* FirebaseCRUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCRUD.swift; sourceTree = "<group>"; };
 		7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coffeeShop.jpg; sourceTree = "<group>"; };
 		7DB873002AC551C1002A10E8 /* product1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = product1.jpeg; sourceTree = "<group>"; };
@@ -124,6 +134,7 @@
 				7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */,
 				7DB873002AC551C1002A10E8 /* product1.jpeg */,
 				7DB873022AC7DBC2002A10E8 /* product2.png */,
+				7D3D462D2ACD531D00A617EE /* product3.jpg */,
 				7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */,
 				7DB873052AC7EC90002A10E8 /* RoyYa.jpg */,
 				7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */,
@@ -136,6 +147,10 @@
 			children = (
 				7D6575A72AA9B6A000245E7E /* TestViewController.swift */,
 				7DB8730C2AC819E9002A10E8 /* TestDownloadVC.swift */,
+				7D85357C2AD66BD3007F11E7 /* UserDetailVC.swift */,
+				7D8535862AD679DD007F11E7 /* StoreListVC.swift */,
+				7D8535802AD6745E007F11E7 /* StoryListCellTableViewCell.swift */,
+				7D8535812AD6745E007F11E7 /* StoryListCellTableViewCell.xib */,
 				7D6575C72AA9BFF400245E7E /* StoreDetailVC.swift */,
 				7DCE5DBB2AB944B300EBF851 /* ProductDetailVC.swift */,
 				7D138ED12ABC1F6F00743828 /* PurchaseView.swift */,
@@ -235,6 +250,7 @@
 				7D6575B02AA9B6A400245E7E /* LaunchScreen.storyboard in Resources */,
 				7DB873032AC7DBC2002A10E8 /* product2.png in Resources */,
 				7DB873012AC551C1002A10E8 /* product1.jpeg in Resources */,
+				7D3D462E2ACD531E00A617EE /* product3.jpg in Resources */,
 				7DCE5DBA2AB940C600EBF851 /* women.jpg in Resources */,
 				7D6575AD2AA9B6A400245E7E /* Assets.xcassets in Resources */,
 				7DB873092AC7EC91002A10E8 /* Roy&Wong.jpg in Resources */,
@@ -244,6 +260,7 @@
 				7DB872FF2AC55147002A10E8 /* coffeeShop.jpg in Resources */,
 				7D6575AB2AA9B6A000245E7E /* Main.storyboard in Resources */,
 				7D138EC52ABAE51500743828 /* GoogleService-Info.plist in Resources */,
+				7D8535832AD6745E007F11E7 /* StoryListCellTableViewCell.xib in Resources */,
 				7DB873072AC7EC91002A10E8 /* RoyHappy.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DE39CAD2AAFFE9600B4A5E9 /* Login.swift in Sources */,
+				7D8535822AD6745E007F11E7 /* StoryListCellTableViewCell.swift in Sources */,
 				7D6575A82AA9B6A000245E7E /* TestViewController.swift in Sources */,
 				7D6575A42AA9B6A000245E7E /* AppDelegate.swift in Sources */,
 				7D138ED22ABC1F6F00743828 /* PurchaseView.swift in Sources */,
@@ -263,9 +281,11 @@
 				7DE39CAB2AAF040000B4A5E9 /* DataFromFireBase.swift in Sources */,
 				7D138EDA2ABC545500743828 /* AnimateController.swift in Sources */,
 				7D138ED42ABC339000743828 /* PurchaseVC.swift in Sources */,
+				7D85357D2AD66BD3007F11E7 /* UserDetailVC.swift in Sources */,
 				7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */,
 				7DCE5DBC2AB944B300EBF851 /* ProductDetailVC.swift in Sources */,
 				7DB8730D2AC819E9002A10E8 /* TestDownloadVC.swift in Sources */,
+				7D8535872AD679DD007F11E7 /* StoreListVC.swift in Sources */,
 				7D6575C82AA9BFF400245E7E /* StoreDetailVC.swift in Sources */,
 				7D138ED62ABC506000743828 /* TestVC.swift in Sources */,
 				7D915BCA2AAAFC9000910D5C /* FirebaseCRUD.swift in Sources */,

@@ -31,10 +31,10 @@ class TestViewController: UIViewController {
             iconBase64 =  imageStruct.toImageBase64()!
         }
         
-        var product1Base64 = String()
-        if  let product1 = UIImage(named: "product1.jpeg") {
+        var product3Base64 = String()
+        if  let product1 = UIImage(named: "product3.jpg") {
             let productStruct = DataFromFireBase.ImagetoBase64.init(Image: product1)
-            product1Base64 =  productStruct.toImageBase64()!
+            product3Base64 =  productStruct.toImageBase64()!
         }
         
         var product2Base64 = String()
@@ -77,13 +77,14 @@ class TestViewController: UIViewController {
                             """,
                     "storeID": "N294oijskjngr",
                     "amount": 10,
-                    "picture": product1Base64,
+                    "picture": product3Base64,
                     "timestamp": Date().timeIntervalSince1970
                 ],
                 "product_id_2": [
                     "name": "Product 2",
-                    "price": 10.99,
-                    "description": "Description for Product 2",
+                    "price": 10,
+                    "descriptionShort": "日曬 225g , 主風味：水仙花, 覆盆子, 可可碎片烘焙度：淺烘焙酸度：3.5分 (酸度由弱至強是1~5分)",
+                    "descriptionLong": "Coffee Review 盲測 :細緻，豐富而複雜。杯中帶有水仙花、覆盆子、可可碎片、雪松、沒藥的香氣。豐富的甜感結構，帶有明亮而平衡的酸值；優雅，如絲綢般的口感。尾韻是以花香帶有可可調性貫穿。",
                     "storeID": "N294oijskjngr",
                     "amount": 8,
                     "picture": product2Base64,
@@ -93,12 +94,22 @@ class TestViewController: UIViewController {
             "carts": [
                 //                        "user_id_1": [
                 "product_id_1": [
+                    "cart_id_247454aeurigh":[
                     "quantity": 3,
+                    "specification":225,
+                    "grind":"手沖",
+                    "user_id":"-NfthDRH3B9yhlg7IotX",
                     "timestamp": Date().timeIntervalSince1970
+                    ]
                 ],
                 "product_id_2": [
-                    "quantity": 1,
+                    "cart_id_247245yhigh":[
+                    "quantity": 3,
+                    "specification":450,
+                    "grind":"摩卡壺",
+                    "user_id":"-NfthDRH3B9yhlg7IotX",
                     "timestamp": Date().timeIntervalSince1970
+                    ]
                 ]
                 //                        ],
                 //                        "user_id_2": [
@@ -130,8 +141,9 @@ class TestViewController: UIViewController {
             }
         }
         
-        
+        //重複六次建立共12筆商品檔案，並只更新StoreID的文檔值為已建立的userId
         if let DictProduct = shopdata["products"] as? [String:Any] {
+            
             let product1 = DictProduct["product_id_1"]
             let product2 = DictProduct["product_id_2"]
             

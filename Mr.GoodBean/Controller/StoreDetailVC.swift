@@ -17,16 +17,24 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     var userDataDict = [String:Any]()
     var productImageArray = [Data]()
     
+    var structForNextVC = DataFromFireBase.Product(name: "商品名稱", price: 0, amount: 0, descriptionShort: "商品概述", descriptionLong: """
+        這是商品的詳細描述。
+        商品描述的第二行。
+        商品描述的第三行。
+        """, picture: "", storeID: "", timestamp: 0)
+    var selectedProductId = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userDataDict = DataFromFireBase.shared.currentUser
-        print("\(userDataDict)")
+//        print("\(userDataDict)")
         //userData
         var userIconData = Data()
         var userBanner = Data()
         var userDescription = String()
         var userName = String()
+        
         
         if let IcondataFromFunc = AnytoData(Dict: userDataDict["icon"]) {
             userIconData = IcondataFromFunc
@@ -43,7 +51,7 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         for i in 0...productKeyDict.count - 1 {
             if let productDetailDict = productKeyDict[DataFromFireBase.shared.productsKeys[i]] as? [String:Any] {
                 if let productPicBase64 = productDetailDict["picture"] as? String {
-                   let productPicBase64Struct = DataFromFireBase.ImageBase64(base64String: productPicBase64)
+                   let productPicBase64Struct = DataFromFireBase.Base64ToIamge(base64String: productPicBase64)
                     if let Data = productPicBase64Struct.toImageData()  {
                         productImageArray.append(Data)
                     }
@@ -84,8 +92,19 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         avatarImageView.image = UIImage(data: userIconData) // 頭像的圖片
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         avatarImageView.clipsToBounds = true
+        avatarImageView.backgroundColor = .gray
         view.addSubview(avatarImageView)
         
+        //設置姓名標籤
+        let nameLabel = UILabel()
+        nameLabel.text = userName
+        nameLabel.backgroundColor = .lightText
+        view.addSubview(nameLabel)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 10).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 161).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 31).isActive = true
         // 加入UITextView
         //        NSLayoutConstraint.activate([sotreDescribeTV.topAnchor.constraint(equalTo: bannerImageView.bottomAnchor), sotreDescribeTV.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16)])
         sotreDescribeTextView = UITextView(frame: CGRect(x: 0, y: bannerImageView.frame.maxY, width: view.frame.width, height: 128))
@@ -126,7 +145,7 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         guard let AnyFromDict = Dict as? String  else {
            return nil
         }
-        let Base64Struct = DataFromFireBase.ImageBase64(base64String:AnyFromDict  )
+        let Base64Struct = DataFromFireBase.Base64ToIamge(base64String:AnyFromDict  )
         guard let  Data = Base64Struct.toImageData() else {
            return nil
         }
@@ -156,16 +175,25 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 在此處處理點擊特定商品的操作
         // 獲取選擇的商品或商品ID
-        //                        let selectedProduct = yourProductArray[indexPath.row] // 替換成你的商品數據
+        let selectedProduct = DataFromFireBase.shared.productsKeys[indexPath.row]
+            selectedProductId = selectedProduct
         
+        // 替換成你的商品數據
         // 創建ProductDetailViewController的實例
         //let productDetailVC = ProductDetailVC()
-        //                        productDetailVC.productID = selectedProduct // 傳遞商品信息，例如ID或其他需要的數據
+        guard let selectedProductDict = DataFromFireBase.shared.productOfUser["\(selectedProduct)"] as? [String:Any] else {
+            assertionFailure("***轉檔失敗***")
+            return
+        }
+        DataFromFireBase.shared.dictToProductStruct(from: selectedProductDict, completion: { Data in
+            //print("#####\(Data)")
+            self.structForNextVC = Data
+        }) // 傳遞商品信息，例如ID或其他需要的數據
         
         // 使用導航控制器將ProductDetailViewController推送到堆棧中
-        //                        navigationController?.pushViewController(productDetailVC, animated: true)
-        //                print("item picked")
-        performSegue(withIdentifier: "productSegue", sender: indexPath)
+//                                navigationController?.pushViewController(productDetailVC, animated: true)
+//                        print("item picked")
+        performSegue(withIdentifier: "showProductDetail", sender: indexPath)
     }
     
     
@@ -173,18 +201,19 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-    //        if segue.identifier == "showProductDetail" {
-    //            // 獲取目標視圖控制器
-    //                    if let productDetailVC = segue.destination as? ProductDetailVC {
-    //                        // 在這裡可以設置ProductDetailViewController的屬性或進行其他必要的操作
-    //                        // 例如，設置商品信息
-    //                        //productDetailVC.productID = selectedProductID // 假設你有一個屬性用於存儲商品ID
-    //                    }
-    //        }
-    //    }
-    //
-    //
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//     //Get the new view controller using segue.destination.
+//     //Pass the selected object to the new view controller.
+            if segue.identifier == "showProductDetail" {
+                // 獲取目標視圖控制器
+                        if let productDetailVC = segue.destination as? ProductDetailVC {
+                            // 在這裡可以設置ProductDetailViewController的屬性或進行其他必要的操作
+                            // 例如，設置商品信息
+                            productDetailVC.productStruct = structForNextVC
+                            productDetailVC.selectedProductId = selectedProductId//假設你有一個屬性用於存儲商品ID
+                        }
+            }
+        }
+    
+    
 }
