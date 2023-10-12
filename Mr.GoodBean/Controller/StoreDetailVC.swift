@@ -14,7 +14,7 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     
     var sotreDescribeTextView : UITextView!
     var bannerImageView : UIImageView!
-    var userDataDict = [String:Any]()
+    var storeDataDict = [String:Any]()
     var productImageArray = [Data]()
     
     var structForNextVC = DataFromFireBase.Product(name: "商品名稱", price: 0, amount: 0, descriptionShort: "商品概述", descriptionLong: """
@@ -22,12 +22,13 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         商品描述的第二行。
         商品描述的第三行。
         """, picture: "", storeID: "", timestamp: 0)
+    
     var selectedProductId = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userDataDict = DataFromFireBase.shared.currentUser
+        storeDataDict = DataFromFireBase.shared.currentUser
 //        print("\(userDataDict)")
         //userData
         var userIconData = Data()
@@ -36,17 +37,17 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         var userName = String()
         
         
-        if let IcondataFromFunc = AnytoData(Dict: userDataDict["icon"]) {
+        if let IcondataFromFunc = AnytoData(Dict: storeDataDict["icon"]) {
             userIconData = IcondataFromFunc
         }
-        if let DesStringFromFunc = AnytoString(Dict: userDataDict["descriptions"]) {
+        if let DesStringFromFunc = AnytoString(Dict: storeDataDict["descriptions"]) {
             userDescription = DesStringFromFunc
         }
-        if let NameStringFromFunc = AnytoString(Dict: userDataDict["username"]) {
+        if let NameStringFromFunc = AnytoString(Dict: storeDataDict["username"]) {
             userName = NameStringFromFunc
         }
         
-        //productPicDataArray
+        //productPicDataArray 將商品資料下載下來集成真列
          let productKeyDict = DataFromFireBase.shared.productOfUser
         for i in 0...productKeyDict.count - 1 {
             if let productDetailDict = productKeyDict[DataFromFireBase.shared.productsKeys[i]] as? [String:Any] {
@@ -96,17 +97,19 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         view.addSubview(avatarImageView)
         
         //設置姓名標籤
-        let nameLabel = UILabel()
+        let nameLabel = UILabel(frame: CGRect(x: 123, y: 116, width: 161, height: 26))
         nameLabel.text = userName
         nameLabel.backgroundColor = .lightText
         view.addSubview(nameLabel)
         nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 10).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 161).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 31).isActive = true
+        
+//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+//        nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 10).isActive = true
+//        nameLabel.widthAnchor.constraint(equalToConstant: 161).isActive = true
+//        nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 31).isActive = true
         // 加入UITextView
         //        NSLayoutConstraint.activate([sotreDescribeTV.topAnchor.constraint(equalTo: bannerImageView.bottomAnchor), sotreDescribeTV.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16)])
+        
         sotreDescribeTextView = UITextView(frame: CGRect(x: 0, y: bannerImageView.frame.maxY, width: view.frame.width, height: 128))
         sotreDescribeTextView.backgroundColor = UIColor.white // 設置背景色
         sotreDescribeTextView.text = userDescription // 預設文本
@@ -191,9 +194,12 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         }) // 傳遞商品信息，例如ID或其他需要的數據
         
         // 使用導航控制器將ProductDetailViewController推送到堆棧中
-//                                navigationController?.pushViewController(productDetailVC, animated: true)
+        if let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailVC") {
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+//                               navigationController?.pushViewController(productDetailVC, animated: true)
 //                        print("item picked")
-        performSegue(withIdentifier: "showProductDetail", sender: indexPath)
+        //performSegue(withIdentifier: "showProductDetail", sender: indexPath)
     }
     
     

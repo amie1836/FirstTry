@@ -20,10 +20,10 @@ class DataFromFireBase {
     var loadingUserDataDict = [String:Any]()
     
     var currentUser = [String:Any]()
-    var productOfUser = [String:Any]()
-    var cartOfUser = [String:Any]()
-    
     var currentUserKey = String()
+    var cartOfUser = [String:Any]()
+
+    var productOfUser = [String:Any]()
     var productsKeys = [String]()
     
     struct user {

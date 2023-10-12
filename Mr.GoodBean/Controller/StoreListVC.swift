@@ -17,7 +17,7 @@ class StoreListVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "StoryListCellTableViewCell", bundle: nil)
+        let nib = UINib(nibName: "StoreListCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "StoreListCell")
         //self.view.addSubview(tableView)
         // Uncomment the following line to preserve selection between presentations
@@ -41,7 +41,7 @@ class StoreListVC: UITableViewController {
 
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StoreListCell", for: indexPath) as! StoryListCellTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StoreListCell", for: indexPath) as! StoreListCell
 
         // Configure the cell...
         let didSelectedStore = allStoreID[indexPath.row]
@@ -54,21 +54,29 @@ class StoreListVC: UITableViewController {
             return cell
         }
         DataFromFireBase.shared.dictToUserStruct(from: selectedUserDict) { userDataStruct in
-            cell.StoreBannerImageView.image = UIImage(named: "white_cat_and_dog.jpg")
+            //cell.StoreBannerImageView.image = UIImage(named: "white_cat_and_dog.jpg")
             if let data = userDataStruct.iconToData(icon: userDataStruct.icon) {
-                cell.StoreIconImageVIew.image = UIImage(data: data)
+               cell.StoreIconImageView.image = UIImage(data: data)
+                cell.StoreIconImageView.contentMode = .scaleToFill
             }
             cell.StoreNameLabel.text = userDataStruct.username
         }
         
-        //cell.StoreBannerImageView =
+        cell.StoreBannerImageView.image = UIImage(named: "white_cat_and_dog.jpg")
+        cell.StoreBannerImageView.contentMode = .scaleToFill
 
         return cell
     }
- 
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
+        performSegue(withIdentifier: "storeDetailSegue", sender: indexPath)
+//        if let nextVC =  self.storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC") {
+//            navigationController?.pushViewController(nextVC, animated: true)
+//        }
     }
     
     /*
@@ -106,14 +114,25 @@ class StoreListVC: UITableViewController {
     }
     */
 
-    /*
+   
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "storeDetailSegue",
+           let nextVC = segue.destination as? StoreDetailVC,
+           let index = self.tableView.indexPathForSelectedRow
+        {    let didSelectedStoreID = allStoreID[index.row]
+            if let selectedStoreData = DataFromFireBase.shared.allStoreDataDict[didSelectedStoreID] as? [String:Any] {
+                
+                nextVC.storeDataDict = selectedStoreData
+    
+            }
+            
+        }
     }
-    */
+   
 
 }

@@ -29,7 +29,7 @@ class TestDownloadVC: UIViewController {
     
     @IBAction func DownloadBtnPressed(_ sender: Any) {
         // 下載用戶資料
-       // 挑選（比對）出特定筆資料
+       // 模仿挑選（比對）出特定筆資料
         databaseRef.child("users").queryOrdered(byChild: "email").queryEqual(toValue: "user1@example.com").observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.exists() {
                 if let data = snapshot.value as? [String: Any] {
@@ -69,7 +69,7 @@ class TestDownloadVC: UIViewController {
     @IBAction func goBtnPressed(_ sender: Any) {
         
         let storyboard = self.storyboard
-        let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreListVC")
+        let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC")
         self.view.window?.rootViewController = storeListVC
         
         //productData

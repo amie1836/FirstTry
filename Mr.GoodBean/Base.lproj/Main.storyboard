@@ -26,7 +26,7 @@
         <!--Store DetailVC-->
         <scene sceneID="QDG-Rf-W0x">
             <objects>
-                <viewController id="5v2-bS-flJ" customClass="StoreDetailVC" customModule="Mr_GoodBean" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoreDetailVC" id="5v2-bS-flJ" customClass="StoreDetailVC" customModule="Mr_GoodBean" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wJB-JY-a15">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,17 +35,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="EeT-6k-dPx"/>
                     <connections>
-                        <segue destination="P4Z-L5-J9V" kind="show" identifier="showProductDetail" id="NEW-5V-yO1"/>
+                        <segue destination="P4Z-L5-J9V" kind="show" identifier="showProductDetail" id="V2q-hl-fqM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qvc-2X-qGk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3753" y="1"/>
+            <point key="canvasLocation" x="6532.06106870229" y="0.70422535211267612"/>
         </scene>
         <!--Product DetailVC-->
         <scene sceneID="Bvi-IM-Lv9">
             <objects>
-                <viewController id="P4Z-L5-J9V" customClass="ProductDetailVC" customModule="Mr_GoodBean" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="P4Z-L5-J9V" customClass="ProductDetailVC" customModule="Mr_GoodBean" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lBs-ec-XgI">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMC-Fe-qbG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4552" y="1"/>
+            <point key="canvasLocation" x="7332.06106870229" y="0.70422535211267612"/>
         </scene>
         <!--Test DownloadVC-->
         <scene sceneID="9FA-Qb-nIh">
@@ -205,25 +205,6 @@
             </objects>
             <point key="canvasLocation" x="-268" y="675"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="bZe-NF-n0b">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JbN-dx-kt3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="StoreDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="Ka0-Rr-0NO" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="aqN-kp-6Fd"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Od-KL-cKK">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5v2-bS-flJ" kind="relationship" relationship="rootViewController" id="eon-oi-INZ"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="2992" y="-411"/>
-        </scene>
         <!--商店列表-->
         <scene sceneID="WPo-g7-hXN">
             <objects>
@@ -248,9 +229,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="商店列表" id="QCo-ZB-1RX"/>
-                    <connections>
-                        <segue destination="5v2-bS-flJ" kind="show" id="ZSg-dz-imL"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cgp-rc-QPZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -275,10 +253,25 @@
             </objects>
             <point key="canvasLocation" x="1020.6106870229007" y="0.70422535211267612"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6cL-6D-Fcd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K4K-xL-zOK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dds-X2-UeW">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5v2-bS-flJ" kind="relationship" relationship="rootViewController" id="rhY-KF-tZS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ynt-u6-268" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5605.3435114503818" y="0.70422535211267612"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="ZSg-dz-imL"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <systemColor name="linkColor">
