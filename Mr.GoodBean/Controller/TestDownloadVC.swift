@@ -69,9 +69,10 @@ class TestDownloadVC: UIViewController {
     @IBAction func goBtnPressed(_ sender: Any) {
         
         let storyboard = self.storyboard
-        let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC")
-        self.view.window?.rootViewController = storeListVC
-        
+        if let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreListVC") {
+            let navigationController = UINavigationController(rootViewController: storeListVC)
+            self.view.window?.rootViewController = navigationController
+        }
         //productData
 //        var productKeyArray = [String]()
 //        FirebaseCRUD.shared.query(child1: "products", childForSearch: "storeID", Equal: DataFromFireBase.shared.userKey) { products in

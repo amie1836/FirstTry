@@ -10,22 +10,46 @@ import Firebase
 import FirebaseCore
 import FirebaseDatabase
 
-class StoreListVC: UITableViewController {
+class StoreListVC: UITableViewController,UITabBarControllerDelegate {
 
     var allStoreID = DataFromFireBase.shared.allStoreID
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hidesBottomBarWhenPushed = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         let nib = UINib(nibName: "StoreListCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "StoreListCell")
-        //self.view.addSubview(tableView)
+        
+        navigationController?.navigationBar.tintColor = .black
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        hidesBottomBarWhenPushed = false
+//    }
+//    
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        hidesBottomBarWhenPushed = true
+//
+//    }
 
     // MARK: - Table view data source
 
@@ -59,7 +83,7 @@ class StoreListVC: UITableViewController {
                cell.StoreIconImageView.image = UIImage(data: data)
                 cell.StoreIconImageView.contentMode = .scaleToFill
             }
-            cell.StoreNameLabel.text = userDataStruct.username
+            cell.StoreNameLabel.text = " \(userDataStruct.username) "
         }
         
         cell.StoreBannerImageView.image = UIImage(named: "white_cat_and_dog.jpg")
@@ -73,10 +97,13 @@ class StoreListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "storeDetailSegue", sender: indexPath)
-//        if let nextVC =  self.storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC") {
-//            navigationController?.pushViewController(nextVC, animated: true)
-//        }
+       // performSegue(withIdentifier: "storeDetailSegue", sender: indexPath)
+        
+        if let nextVC =  self.storyboard?.instantiateViewController(withIdentifier: "StoreDetailVC") {
+            nextVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(nextVC, animated: true)
+            
+        }
     }
     
     /*

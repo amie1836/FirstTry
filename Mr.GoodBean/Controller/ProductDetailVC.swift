@@ -15,6 +15,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
    
     @IBOutlet weak var cameraBtn: UIBarButtonItem!
     
+    @IBOutlet weak var cartBtn: UIButton!
     //資料
     var productStruct = DataFromFireBase.Product(name: "商品名稱", price: 0, amount: 0, descriptionShort: "商品概述", descriptionLong: """
         這是商品的詳細描述。
@@ -123,10 +124,11 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         return toolBar
     }()
 
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // For用戶
         cameraBtn.isHidden = true
@@ -142,40 +144,47 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
            
         self.navigationItem.setRightBarButton(cameraBtn, animated: true)
         // 禁止視圖延伸到導航列下方
+        
 //            edgesForExtendedLayout = []
         view.backgroundColor = .white
         
         //ImageView實作
         
-        productImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 300))
-        productImageView.contentMode = .scaleAspectFill
+        productImageView = UIImageView()
+        productImageView.translatesAutoresizingMaskIntoConstraints = false
+        productImageView.contentMode = .scaleAspectFit
         productImageView.clipsToBounds = true
                view.addSubview(productImageView)
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([productImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),productImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),productImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),productImageView.heightAnchor.constraint(equalToConstant: 280)]
+        )
+      
         productImageView.backgroundColor = .lightGray
 //        view.sendSubviewToBack(productImageView)
         
         // 添加商品敘述
         // 創建一個垂直的 UIStackView 包含商品名稱、概述和垂直對齊的價格和存貨數量
         
-                let verticalStackView = UIStackView(arrangedSubviews: [productNameLabel, productDescriptionLabel])
-                verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-                verticalStackView.axis = .vertical
-                verticalStackView.spacing = 8
+                let horizontalStackView1 = UIStackView(arrangedSubviews: [productNameLabel, cartBtn])
+                horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
+                horizontalStackView1.axis = .horizontal
+                horizontalStackView1.spacing = 8
 
                 // 創建一個水平的 UIStackView 包含價格和存貨數量
-                let horizontalStackView = UIStackView(arrangedSubviews: [productPriceLabel, productInventoryLabel, ])
-                horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-                horizontalStackView.axis = .horizontal
-                horizontalStackView.alignment = .leading // 將對齊方式設置為左對齊
-                horizontalStackView.spacing = 8
+                let horizontalStackView2 = UIStackView(arrangedSubviews: [productPriceLabel, productInventoryLabel, ])
+                horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
+                horizontalStackView2.axis = .horizontal
+                horizontalStackView2.alignment = .leading // 將對齊方式設置為左對齊
+                horizontalStackView2.spacing = 8
 
                 // 將垂直的 UIStackView 和水平的 UIStackView 添加到主 Stack View
 //                mainStackView = UIStackView(arrangedSubviews: [verticalStackView, horizontalStackView])
 //                mainStackView.translatesAutoresizingMaskIntoConstraints = false
 //                mainStackView.axis = .vertical
 //                mainStackView.spacing = 16
-                mainStackView.addArrangedSubview(verticalStackView)
-                mainStackView.addArrangedSubview(horizontalStackView)
+                mainStackView.addArrangedSubview(horizontalStackView1)
+                mainStackView.addArrangedSubview(productDescriptionLabel)
+                mainStackView.addArrangedSubview(horizontalStackView2)
                 
 
                 // 添加主 Stack View 到根視圖
@@ -396,11 +405,20 @@ extension ProductDetailVC: purchaseViewDelegate {
              self.cartRef.childByAutoId().setValue(dict) { error, _ in
                  if let error = error {
                      print("Error upload cart: \(error)")
+                     
                  } else {
+                     // 將新增的購物車加進cartOfUserDict
+                     FirebaseCRUD.shared.query(child1: "carts", childForSearch: "user_id", Equal: DataFromFireBase.shared.currentUserKey) { dict in
+                         for (key,value) in dict {
+                             DataFromFireBase.shared.cartOfUser[key] = value
+                         }
+                     }
                      print("Cart upload successfully")
+                     DataFromFireBase.shared.didAddCart = true
                  }
              }
          }
+         
          
      default :
             aButtonPressed = 0

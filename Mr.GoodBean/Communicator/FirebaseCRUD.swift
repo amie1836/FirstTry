@@ -73,6 +73,20 @@ class FirebaseCRUD {
             }
         }
     }
+    
+    // 刪除購物車
+    func deletCart() {
+        let ref =
+        Database.database().reference().child("carts")
+        
+        ref.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting carts: \(error)")
+            } else {
+                print("Carts deleted successfully")
+            }
+        }
+    }
 
 
    // 查詢

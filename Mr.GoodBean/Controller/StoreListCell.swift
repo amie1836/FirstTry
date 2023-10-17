@@ -21,7 +21,8 @@ class StoreListCell: UITableViewCell {
         StoreIconImageView.layer.cornerRadius = 39
         StoreBannerImageView.alpha = 0.75
         StoreBannerImageView.layer.cornerRadius = 8
-    
+        StoreNameLabel.backgroundColor = .lightText
+        StoreNameLabel.layer.cornerRadius = 8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

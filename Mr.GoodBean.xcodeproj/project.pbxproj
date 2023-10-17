@@ -44,6 +44,8 @@
 		7DCE5DBC2AB944B300EBF851 /* ProductDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCE5DBB2AB944B300EBF851 /* ProductDetailVC.swift */; };
 		7DE39CAB2AAF040000B4A5E9 /* DataFromFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE39CAA2AAF040000B4A5E9 /* DataFromFireBase.swift */; };
 		7DE39CAD2AAFFE9600B4A5E9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE39CAC2AAFFE9600B4A5E9 /* Login.swift */; };
+		7DFE60732ADCB1A300C562D3 /* TestLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE60722ADCB1A200C562D3 /* TestLoginVC.swift */; };
+		7DFE60752ADCB3A900C562D3 /* MrGoodBean.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		7DCE5DBB2AB944B300EBF851 /* ProductDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailVC.swift; sourceTree = "<group>"; };
 		7DE39CAA2AAF040000B4A5E9 /* DataFromFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFromFireBase.swift; sourceTree = "<group>"; };
 		7DE39CAC2AAFFE9600B4A5E9 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		7DFE60722ADCB1A200C562D3 /* TestLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLoginVC.swift; sourceTree = "<group>"; };
+		7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MrGoodBean.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				7D6575AE2AA9B6A400245E7E /* LaunchScreen.storyboard */,
 				7D6575B12AA9B6A400245E7E /* Info.plist */,
 				7D138EC42ABAE51500743828 /* GoogleService-Info.plist */,
+				7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */,
 				7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */,
 				7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */,
 				7DCE5DB92AB940C500EBF851 /* women.jpg */,
@@ -147,6 +152,7 @@
 			children = (
 				7D6575A72AA9B6A000245E7E /* TestViewController.swift */,
 				7DB8730C2AC819E9002A10E8 /* TestDownloadVC.swift */,
+				7DFE60722ADCB1A200C562D3 /* TestLoginVC.swift */,
 				7D85357C2AD66BD3007F11E7 /* UserDetailVC.swift */,
 				7D8535862AD679DD007F11E7 /* StoreListVC.swift */,
 				7D8535882AD6A104007F11E7 /* StoreListCell.swift */,
@@ -248,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6575B02AA9B6A400245E7E /* LaunchScreen.storyboard in Resources */,
+				7DFE60752ADCB3A900C562D3 /* MrGoodBean.jpg in Resources */,
 				7DB873032AC7DBC2002A10E8 /* product2.png in Resources */,
 				7DB873012AC551C1002A10E8 /* product1.jpeg in Resources */,
 				7D3D462E2ACD531E00A617EE /* product3.jpg in Resources */,
@@ -280,6 +287,7 @@
 				7DE39CAB2AAF040000B4A5E9 /* DataFromFireBase.swift in Sources */,
 				7D138EDA2ABC545500743828 /* AnimateController.swift in Sources */,
 				7D138ED42ABC339000743828 /* PurchaseVC.swift in Sources */,
+				7DFE60732ADCB1A300C562D3 /* TestLoginVC.swift in Sources */,
 				7D85357D2AD66BD3007F11E7 /* UserDetailVC.swift in Sources */,
 				7D6575A62AA9B6A000245E7E /* SceneDelegate.swift in Sources */,
 				7DCE5DBC2AB944B300EBF851 /* ProductDetailVC.swift in Sources */,
@@ -432,6 +440,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = DS;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

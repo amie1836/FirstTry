@@ -25,9 +25,22 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     
     var selectedProductId = String()
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        hidesBottomBarWhenPushed = true
+//    }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        hidesBottomBarWhenPushed = false
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+    
         storeDataDict = DataFromFireBase.shared.currentUser
 //        print("\(userDataDict)")
         //userData
@@ -85,11 +98,12 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         bannerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 190))
         bannerImageView.image = UIImage(named: "white_cat_and_dog.jpg") // 背景橫幅的圖片
         bannerImageView.contentMode = .scaleAspectFill
+        bannerImageView.alpha = 0.75
         bannerImageView.clipsToBounds = true
         view.addSubview(bannerImageView)
         
         // 設置圓形頭像
-        let avatarImageView = UIImageView(frame: CGRect(x: 23, y: 76, width: 90, height: 90))
+        let avatarImageView = UIImageView(frame: CGRect(x: 23, y: 96, width: 75, height: 75))
         avatarImageView.image = UIImage(data: userIconData) // 頭像的圖片
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         avatarImageView.clipsToBounds = true
@@ -97,9 +111,9 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         view.addSubview(avatarImageView)
         
         //設置姓名標籤
-        let nameLabel = UILabel(frame: CGRect(x: 123, y: 116, width: 161, height: 26))
+        let nameLabel = UILabel(frame: CGRect(x: 113, y: 126, width: 161, height: 26))
         nameLabel.text = userName
-        nameLabel.backgroundColor = .lightText
+       // nameLabel.backgroundColor = .lightText
         view.addSubview(nameLabel)
         nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         
@@ -156,7 +170,7 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         
     }
     
-    // 實現UICollectionViewDataSource方法
+    // MARK: 實現UICollectionViewDataSource方法
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // 返回商品數量
         //return yourProductArray.count
@@ -166,10 +180,20 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 創建和配置UICollectionViewCell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        let productImageView = UIImageView(frame: cell.contentView.bounds)
+        var productImageView = UIImageView(frame: cell.contentView.bounds)
+        if let existingImageView = cell.contentView.viewWithTag(100) as? UIImageView {
+                productImageView = existingImageView
+            } else {
+                productImageView = UIImageView(frame: cell.contentView.bounds)
+                productImageView.tag = 100
+                cell.contentView.addSubview(productImageView)
+            }
+            
         productImageView.image = UIImage(data: productImageArray[indexPath.row])
 //        productImageView.image = UIImage(named: "product1.jpeg")
         productImageView.contentMode = .scaleAspectFit
+        productImageView.isUserInteractionEnabled = true
+        cell.isUserInteractionEnabled = true
         cell.contentView.addSubview(productImageView)
         return cell
     }
@@ -182,9 +206,8 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
             selectedProductId = selectedProduct
         
         // 替換成你的商品數據
-        // 創建ProductDetailViewController的實例
-        //let productDetailVC = ProductDetailVC()
-        guard let selectedProductDict = DataFromFireBase.shared.productOfUser["\(selectedProduct)"] as? [String:Any] else {
+        
+        guard let selectedProductDict = DataFromFireBase.shared.productOfUser[selectedProduct] as? [String:Any] else {
             assertionFailure("***轉檔失敗***")
             return
         }
@@ -194,12 +217,12 @@ class StoreDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
         }) // 傳遞商品信息，例如ID或其他需要的數據
         
         // 使用導航控制器將ProductDetailViewController推送到堆棧中
-        if let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailVC") {
-            self.navigationController?.pushViewController(nextVC, animated: true)
-        }
+       // if let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailVC") {
+           // self.navigationController?.pushViewController(nextVC, animated: true)
+        //}
 //                               navigationController?.pushViewController(productDetailVC, animated: true)
 //                        print("item picked")
-        //performSegue(withIdentifier: "showProductDetail", sender: indexPath)
+       performSegue(withIdentifier: "showProductDetail", sender: indexPath)
     }
     
     

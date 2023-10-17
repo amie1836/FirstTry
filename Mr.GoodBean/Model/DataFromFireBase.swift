@@ -26,6 +26,8 @@ class DataFromFireBase {
     var productOfUser = [String:Any]()
     var productsKeys = [String]()
     
+    var didAddCart = false
+    
     struct user {
             var username: String
             var email: String
