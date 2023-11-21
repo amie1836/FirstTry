@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseStorage
 
 let FirebaseUserData : [String:Any] = [:]
 
@@ -16,6 +17,7 @@ class TestViewController: UIViewController {
 
     // 取得 Firebase Database 的參考
     let database = Database.database().reference()
+    let storage = Storage.storage().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,8 @@ class TestViewController: UIViewController {
             let productStruct = DataFromFireBase.ImagetoBase64.init(Image: product2)
             product2Base64 =  productStruct.toImageBase64()!
         }
+        
+        
         
         //創建一個包含資料的字典
         let shopdata: [String: Any] = [
@@ -121,85 +125,101 @@ class TestViewController: UIViewController {
             ]
         ]
         
-        
-        // 將資料寫入 Firebase 中的  節點
-        
-        // 建立參考物件已獲取唯一鍵
-        let usersRef = database.child("users").childByAutoId()
-        let usersUniqueKey = usersRef.key
-        // 使用唯一键构建路径
-        // 顯示隱藏的completion功能：option + Enter
-        let specificDataRef = database.child("users").child(usersUniqueKey!)
-        
-        
-        
-        usersRef.setValue(shopdata["users"]) { (error, ref) in
-            if let error = error {
-                print("Error writing to Firebase: \(error)")
-            } else {
-                print("Data written successfully.")
+        //
+        // 准备要上传的图像数据
+        guard let MrGoodBean = UIImage(named: "MrGoodBean.jpg") else
+        {
+            return
+        }
+        if let imageData = MrGoodBean.jpegData(compressionQuality: 0.8) {
+            let uploadTask = storage.child("images/myImage.jpg").putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("上传失败：\(error.localizedDescription)")
+                } else {
+                    print("上传成功")
+                    // 图像已成功上传，您可以执行其他操作
+                }
             }
         }
         
-        //重複六次建立共12筆商品檔案，並只更新StoreID的文檔值為已建立的userId
-        if let DictProduct = shopdata["products"] as? [String:Any] {
-            
-            let product1 = DictProduct["product_id_1"]
-            let product2 = DictProduct["product_id_2"]
-            
-            for _ in 1...6 {
-                
-                let updateStordID : [String:Any] = ["storeID": usersUniqueKey!]
-                
-                let product1Ref = database.child("products").childByAutoId()
-                let product1UniqueKey = product1Ref.key
-                
-                product1Ref.setValue(product1) { (error, ref) in
-                    if let error = error {
-                        print("Error writing to Firebase: \(error)")
-                    } else {
-                        print("Data written successfully.")
-                    }
-                }
-                
-                product1Ref.updateChildValues(updateStordID) { (error, ref) in
-                    if let error = error {
-                        print("Error writing to Firebase: \(error)")
-                    } else {
-                        print("Data written successfully.")
-                    }
-                }
-                
-                
-                let product2Ref = database.child("products").childByAutoId()
-                
-                product2Ref.setValue(product2) { (error, ref) in
-                    if let error = error {
-                        print("Error writing to Firebase: \(error)")
-                    } else {
-                        print("Data written successfully.")
-                    }
-                }
-                
-                
-                product2Ref.updateChildValues(updateStordID) { (error, ref) in
-                    if let error = error {
-                        print("Error writing to Firebase: \(error)")
-                    } else {
-                        print("Data written successfully.")
-                    }
-                }
-            }
-            
-        }
-        
-        database.child("carts").childByAutoId().setValue(shopdata["carts"]) { (error, ref) in
-            if let error = error {
-                print("Error writing to Firebase: \(error)")
-            } else {
-                print("Data written successfully.")
-            }
-        }
+//        // 將資料寫入 Firebase 中的  節點
+//
+//        // 建立參考物件已獲取唯一鍵
+//        let usersRef = database.child("users").childByAutoId()
+//        let usersUniqueKey = usersRef.key
+//        // 使用唯一键构建路径
+//        // 顯示隱藏的completion功能：option + Enter
+//        let specificDataRef = database.child("users").child(usersUniqueKey!)
+//
+//
+//
+//        usersRef.setValue(shopdata["users"]) { (error, ref) in
+//            if let error = error {
+//                print("Error writing to Firebase: \(error)")
+//            } else {
+//                print("Data written successfully.")
+//            }
+//        }
+//
+//        //重複六次建立共12筆商品檔案，並只更新StoreID的文檔值為已建立的userId
+//        if let DictProduct = shopdata["products"] as? [String:Any] {
+//
+//            let product1 = DictProduct["product_id_1"]
+//            let product2 = DictProduct["product_id_2"]
+//
+//            for _ in 1...6 {
+//
+//                let updateStordID : [String:Any] = ["storeID": usersUniqueKey!]
+//
+//                let product1Ref = database.child("products").childByAutoId()
+//                let product1UniqueKey = product1Ref.key
+//
+//                product1Ref.setValue(product1) { (error, ref) in
+//                    if let error = error {
+//                        print("Error writing to Firebase: \(error)")
+//                    } else {
+//                        print("Data written successfully.")
+//                    }
+//                }
+//
+//                product1Ref.updateChildValues(updateStordID) { (error, ref) in
+//                    if let error = error {
+//                        print("Error writing to Firebase: \(error)")
+//                    } else {
+//                        print("Data written successfully.")
+//                    }
+//                }
+//
+//
+//                let product2Ref = database.child("products").childByAutoId()
+//
+//                product2Ref.setValue(product2) { (error, ref) in
+//                    if let error = error {
+//                        print("Error writing to Firebase: \(error)")
+//                    } else {
+//                        print("Data written successfully.")
+//                    }
+//                }
+//
+//
+//                product2Ref.updateChildValues(updateStordID) { (error, ref) in
+//                    if let error = error {
+//                        print("Error writing to Firebase: \(error)")
+//                    } else {
+//                        print("Data written successfully.")
+//                    }
+//                }
+//            }
+//
+//        }
+//
+//        database.child("carts").childByAutoId().setValue(shopdata["carts"]) { (error, ref) in
+//            if let error = error {
+//                print("Error writing to Firebase: \(error)")
+//            } else {
+//                print("Data written successfully.")
+//            }
+//        }
         
         // MARK: 加載要上传的图像
         //        if let image = UIImage(named: "Genshin_activate.jpeg") {
@@ -231,23 +251,23 @@ class TestViewController: UIViewController {
         //                        print("存储失败：\(error.localizedDescription)")
         //                    } else {
         //                        print("存储成功")
-                                database.child("users").queryOrdered(byChild: "email").queryEqual(toValue: "user1@example.com").observeSingleEvent(of: .value) { (snapshot) in
-                                        if snapshot.exists() {
-                                            // 数据存在，可以处理它
-                                            if let data = snapshot.value as? [String: Any] {
-                                                // 处理数据
-                                                for (userId, userData) in data {
-                                                    if let userDataDict = userData as? [String: Any] {
-                                                        print("User ID: \(userId)")
-                                                        print("User Data: \(userDataDict)")
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            // 数据不存在
-                                            print("未找到特定数据")
-                                        }
-                                    }
+//                                database.child("users").queryOrdered(byChild: "email").queryEqual(toValue: "user1@example.com").observeSingleEvent(of: .value) { (snapshot) in
+//                                        if snapshot.exists() {
+//                                            // 数据存在，可以处理它
+//                                            if let data = snapshot.value as? [String: Any] {
+//                                                // 处理数据
+//                                                for (userId, userData) in data {
+//                                                    if let userDataDict = userData as? [String: Any] {
+//                                                        print("User ID: \(userId)")
+//                                                        print("User Data: \(userDataDict)")
+//                                                    }
+//                                                }
+//                                            }
+//                                        } else {
+//                                            // 数据不存在
+//                                            print("未找到特定数据")
+//                                        }
+//                                    }
         
         
 //                                }

@@ -89,6 +89,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
     }()
     
     // MARK: 購物車的顯示
+    var purchaseView : PurchaseView?
     // Pickerview內容
     var arrayForPicker = [String]()
     var aButtonPressed = 0
@@ -286,27 +287,30 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
     @IBAction func cartBtnPress(_ sender: Any) {
        
         //創造view實例以及貼上
-        let purchaseView = PurchaseView()
+        purchaseView = PurchaseView()
+        
         // 設置購買介面視圖的初始位置，將其放在屏幕下方
-        purchaseView.frame.origin.y = self.view.frame.height
+        purchaseView?.frame.origin.y = self.view.frame.height
         //purchaseView.ViewController = self
-        purchaseView.delegate = self
+        purchaseView?.delegate = self
         
        // self.addChild(<#T##childController: UIViewController##UIViewController#>)
-        self.view.addSubview(purchaseView)
-
-        UIView.animate(withDuration: 0.5) {
-
-            // 設置購買介面視圖的新位置，使其顯示在屏幕上
-            purchaseView.frame.origin.y = self.view.frame.height - purchaseView.frame.height
-        }
-        
-        // 簡單傳值
-        if self.productImageView != nil
-        {
-            purchaseView.productImageView.image = self.productImageView.image
-            purchaseView.nameLabel.text = "\(productStruct.name)"
-            purchaseView.priceLabel.text = "NT$\(productStruct.price)"
+        if let purchaseView = purchaseView {
+            self.view.addSubview(purchaseView)
+            
+            UIView.animate(withDuration: 0.5) {
+                
+                // 設置購買介面視圖的新位置，使其顯示在屏幕上
+                purchaseView.frame.origin.y = self.view.frame.height - purchaseView.frame.height
+            }
+            
+            // 簡單傳值
+            if self.productImageView != nil
+            {
+                purchaseView.productImageView.image = self.productImageView.image
+                purchaseView.nameLabel.text = "\(productStruct.name)"
+                purchaseView.priceLabel.text = "NT$\(productStruct.price)"
+            }
         }
 //        let purchaseVC = PurchaseVC()
 //        present(purchaseVC, animated: true)
@@ -328,38 +332,7 @@ class ProductDetailVC: UIViewController, UIImagePickerControllerDelegate & UINav
         // Pass the selected object to the new view controller.
     }
     */
-//    @objc func toolBarConfirmButtonTapped() {
-//        let row = pickerView.selectedRow(inComponent: 0)
-//         switch aButtonPressed {
-//         case 1 :
-//            cartStruct.spec = arrayForPicker[row]
-//         case 2 :
-//             cartStruct.grind = arrayForPicker[row]
-//         case 3 :
-//             if let amount = Int(arrayForPicker[row]) {
-//                 cartStruct.amount = amount
-//             }
-//         case 4 :
-//             cartStruct.cartStructToDict { dict in
-//                 self.cartRef.setValue(dict) { error, _ in
-//                     if let error = error {
-//                         print("Error upload cart: \(error)")
-//                     } else {
-//                         print("Cart upload successfully")
-//                     }
-//                 }
-//             }
-//
-//
-//         default :
-//                aButtonPressed = 0
-//             }
-//             self.view.endEditing(true)
-//         }
-//
-//    @objc func toolBarCancelButtonTapped() {
-//        self.view.endEditing(true)
-//     }
+
  }
     
 
@@ -418,8 +391,17 @@ extension ProductDetailVC: purchaseViewDelegate {
                  }
              }
          }
-         
-         
+         if let purchaseView = purchaseView {
+             UIView.animate(withDuration: 0.3, animations: {
+                 purchaseView.alpha = 0.0
+             }) { (completed) in
+                 if completed {
+                     purchaseView.removeFromSuperview()
+                 }
+             }
+         }
+        NotificationCenter.default.post(name: NSNotification.Name("CartAdd"), object: nil)
+             
      default :
             aButtonPressed = 0
          }

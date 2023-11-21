@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseStorage
 import UIKit
 
 class DataFromFireBase {
@@ -27,6 +28,7 @@ class DataFromFireBase {
     var productsKeys = [String]()
     
     var didAddCart = false
+    var cartImageArray = [UIImage]()
     
     struct user {
             var username: String

@@ -22,9 +22,9 @@ class PurchaseView: UIView {
     // 準備Delegate變數
     weak var delegate : purchaseViewDelegate?
     
-//    // cart資料
-//    let cartRef = Database.database().reference().child("carts")
-//    var cartStruct = DataFromFireBase.Cart(user_id: "\(DataFromFireBase.shared.currentUserKey)", spec: "error", grind: "error", amount: 0, timestamp: 0)
+    //    // cart資料
+    //    let cartRef = Database.database().reference().child("carts")
+    //    var cartStruct = DataFromFireBase.Cart(user_id: "\(DataFromFireBase.shared.currentUserKey)", spec: "error", grind: "error", amount: 0, timestamp: 0)
     
     // UI元件
     
@@ -87,46 +87,8 @@ class PurchaseView: UIView {
         return button
     }()
     
-//    // 選擇樣式的PickerView
-//    let pickerView : UIPickerView = {
-//        let pickerView = UIPickerView()
-//        pickerView.translatesAutoresizingMaskIntoConstraints = false
-//        return pickerView
-//    }()
-//    
-//    // 讓pickerView像鍵盤彈出的隱藏texyView
-//    let textFieldForPicker : UITextField = {
-//        let textField = UITextField()
-//        textField.isHidden = true
-//        return textField
-//    }()
-//    
-//    // PickerView的ToolBar
-//    let pickerViewToolBar : UIToolbar = {
-//        let toolBar = UIToolbar()
-//        //print("\(toolBar.frame.height)")
-//        let leftBtn = UIBarButtonItem(title: "退出", style: .plain, target: PurchaseView.self, action: #selector(toolBarCancelButtonTapped))
-//        let rightBtn = UIBarButtonItem(title: "確認", style: .plain, target: PurchaseView.self, action: #selector(toolBarConfirmButtonTapped))
-//        let flexibleSpace = UIBarButtonItem(systemItem: .flexibleSpace)
-//        toolBar.setItems([leftBtn,flexibleSpace,rightBtn], animated: false)
-//        toolBar.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return toolBar
-//    }()
-//    
-    // 確認按哪個按鈕
-//    var spectIsBtnPressed = false
-//    var grindIsBtnPressed = false
-//    var numBtnIsPressed = false
-//    var cartBtnIsPressed = false
+    
     var aButtonPressed = 0
-   
-    // Pickerview內容
-   // var arrayForPicker = [String]()
-    
-    // PurchaseViewController本人
-   // var ViewController : ProductDetailVC?
-    
     
     
     override init(frame: CGRect) {
@@ -139,13 +101,13 @@ class PurchaseView: UIView {
         setupView()
     }
     
-//    override func viewDidLoad() {
-//            super.viewDidLoad()
-//            // Do any additional setup after loading the view.
-//
-//            songTextField.inputView = songPickerView
-//            songTextField.inputAccessoryView = songToolbar
-//    }
+    //    override func viewDidLoad() {
+    //            super.viewDidLoad()
+    //            // Do any additional setup after loading the view.
+    //
+    //            songTextField.inputView = songPickerView
+    //            songTextField.inputAccessoryView = songToolbar
+    //    }
     
     
     private func setupView() {
@@ -176,15 +138,9 @@ class PurchaseView: UIView {
         priceLabel.text = "價格"
         
         NSLayoutConstraint.activate([nameLabel.widthAnchor.constraint(equalToConstant: 132),
-            verticalStackView.topAnchor.constraint(equalTo: grayView.topAnchor, constant: 72),verticalStackView.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 25)])
+                                     verticalStackView.topAnchor.constraint(equalTo: grayView.topAnchor, constant: 72),verticalStackView.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 25)])
         
-//        // PickerView放進來
-//        if let existViewController = ViewController {
-//            existViewController.view.addSubview(pickerView)
-//            // textViewForPicker放進來
-//            existViewController.view.addSubview(textFieldForPicker)
-//            textFieldForPicker.inputView = pickerView
-//        }
+        
         
         // 創建另一個垂直的 UIStackView包含規格和研磨的button
         let verticalStackView2 = UIStackView(arrangedSubviews: [specBtn, grindBtn])
@@ -253,31 +209,7 @@ class PurchaseView: UIView {
     
     // 商品設定按鈕功能
     
-   @objc func specBtnPressed() {
-        // PickerView放進來
-//        if let self = ViewController {
-//            self.arrayForPicker = ["4/1磅","半磅","一磅"]
-//            pickerView.dataSource = self
-//            pickerView.delegate = self
-//            self.view.addSubview(pickerView)
-//            // NSLayout
-//            pickerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-//            pickerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-//            pickerView.topAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true // 初始位置在畫面底部
-//                pickerView.heightAnchor.constraint(equalToConstant: pickerView.frame.height).isActive = true
-//
-//            // textViewForPicker放進來
-//            self.view.addSubview(textFieldForPicker)
-//            textFieldForPicker.inputView = pickerView
-//            // toolBar放進來
-//            self.view.addSubview(pickerViewToolBar)
-//            pickerViewToolBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-//            pickerViewToolBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-//            pickerView.topAnchor.constraint(equalTo: pickerView.bottomAnchor).isActive = true
-//            textFieldForPicker.inputAccessoryView = pickerViewToolBar
-//            textFieldForPicker.becomeFirstResponder()
-//            aButtonPressed = 1
-//        }
+    @objc func specBtnPressed() {
         aButtonPressed = 1
         var arrayForPicker = ["4/1磅","半磅","一磅"]
         self.delegate?.openPickerView(arrayForPicker: arrayForPicker,aButtonPressed: aButtonPressed)
@@ -300,50 +232,9 @@ class PurchaseView: UIView {
         aButtonPressed = 4
         var arrayForPicker = ["確定將產品加入購物車？"]
         self.delegate?.openPickerView(arrayForPicker: arrayForPicker,aButtonPressed: aButtonPressed)
+
+        
     }
     
-    // pickerViewToolBar barButtonItem的功能
-//   @objc  func toolBarCancelButtonTapped() {
-//        if let existViewController = ViewController {
-//            existViewController.view.endEditing(true)
-//        }
-//       self.delegate?.toolBarCancelButtonTapped()
-//    }
-    
-    
-//   @objc  func toolBarConfirmButtonTapped() {
-//        if let existViewController = ViewController {
-//            v
-//     switch aButtonPressed {
-//            case 1 :
-//         self.cartStruct.spec = existViewController.arrayForPicker[row]
-//           default :
-//                aButtonPressed = 0
-//            }
-//            existViewController.view.endEditing(true)
-//        }
-//       self.delegate?.toolBarConfirmButtonTapped( row: pickerView.selectedRow(inComponent: 0),aButtonPressed: aButtonPressed)
-//    }
 }
-
-//extension ProductDetailVC : UIPickerViewDataSource, UIPickerViewDelegate {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1 // 一個組件
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return arrayForPicker.count // 選項的數量
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return arrayForPicker[row] // 返回選項的標題
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        // 用戶選擇的選項
-//        let selectedOption = arrayForPicker[row]
-//        // 在這裡處理選擇，例如將其存儲在變數中
-//    }
-//}
-
 

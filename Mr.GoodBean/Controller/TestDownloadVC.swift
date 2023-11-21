@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseStorage
 
 
 class TestDownloadVC: UIViewController {

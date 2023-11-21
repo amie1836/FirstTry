@@ -29,6 +29,7 @@ class UserDetailVC: UIViewController,UITabBarControllerDelegate {
     var currentUser = DataFromFireBase.shared.currentUser
     var totalCost = Int()
     var productIDArray = [String]()
+    var productImageArray = [UIImage]()
     
     // 切換回來時重新載入資料
     override func viewDidAppear(_ animated: Bool) {
@@ -105,42 +106,61 @@ class UserDetailVC: UIViewController,UITabBarControllerDelegate {
         
 //        var amountArray = [Int]()
 //        var productIDArray = [""]
-        
-        for i in 0...cartValueArray.count - 1 {
-            let singleCartDict = cartValueArray[i]
-            if let amount = singleCartDict["amount"] as? Int,
-               let productID = singleCartDict["product_id"] as? String
-            {
-                ref.child("products").child(productID).observeSingleEvent(of: .value) { (snapshot) in
-                    guard let snapShot = snapshot.value as? [String:Any] else {
-                        assertionFailure("資料結構有誤")
-                        return
+        if cartValueArray.count > 0 {
+            for i in 0...cartValueArray.count - 1 {
+                let singleCartDict = cartValueArray[i]
+                if let amount = singleCartDict["amount"] as? Int,
+                   let productID = singleCartDict["product_id"] as? String
+                {
+                    ref.child("products").child(productID).observeSingleEvent(of: .value) { (snapshot) in
+                        guard let snapShot = snapshot.value as? [String:Any] else {
+                            assertionFailure("資料結構有誤")
+                            return
+                        }
+                        guard let price = snapShot["price"] as? Int else {
+                            assertionFailure("資料內容有誤")
+                            return
+                        }
+                        self.totalCost += amount * price
+                        self.totalLabel.text = "NT$\(self.totalCost)"
                     }
-                    guard let price = snapShot["price"] as? Int else {
-                        assertionFailure("資料內容有誤")
-                        return
-                    }
-                    self.totalCost += amount * price
-                    self.totalLabel.text = "NT$\(self.totalCost)"
+                    //                amountArray.append(amount)
+                    productIDArray.append(productID)
                 }
-//                amountArray.append(amount)
-                productIDArray.append(productID)
             }
         }
-        
         cartCollectionView.dataSource = self
         cartCollectionView.delegate = self
         cartCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         
 
-        if let collectionViewLayout = cartCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            collectionViewLayout.scrollDirection = .horizontal
-        }
+//        if let collectionViewLayout = cartCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            collectionViewLayout.scrollDirection = .horizontal
+//        }
 
         
         // Do any additional setup after loading
-        //totalLabel.text = "NT$\(totalCost)"
-    
+//        totalLabel.text = "NT$\(totalCost)"
+//        for i in 0...productIDArray.count - 1 {
+//            ref.child("products").child(productIDArray[i]).observeSingleEvent(of: .value) { snapshot in
+//                guard let dict = snapshot.value as? [String:Any] else {
+//                    assertionFailure("資料下載錯誤")
+//                    return
+//                }
+//                guard let photoBase64 =  dict["picture"] as? String else
+//                {
+//                    assertionFailure("資料格式錯誤")
+//                    return
+//                }
+//                let photoToData = DataFromFireBase.Base64ToIamge(base64String: photoBase64)
+//                if let data = photoToData.toImageData() {
+//                    self.photoImageView.image = UIImage(data: data)
+//                }
+//            }
+//        }
+        
+        //NotificationCenter
+//        NotificationCenter.default.addObserver(self, selector: #selector(downloadCartImage), name: Notification.Name("CartAdd"), object: nil)
     }
     
 //    func downloadData(completion: @escaping () -> Void) {
@@ -163,7 +183,28 @@ class UserDetailVC: UIViewController,UITabBarControllerDelegate {
         
     }
     
-    
+//    @objc func downloadCartImage() {
+//
+//        for i in 0...productIDArray.count - 1 {
+//            ref.child("products").child(productIDArray[i]).observeSingleEvent(of: .value) { (snapshot,_) in
+//                guard let dict = snapshot.value as? [String:Any] else {
+//                    assertionFailure("資料下載錯誤")
+//                    return
+//                }
+//                guard let photoBase64 =  dict["picture"] as? String else
+//                {
+//                    assertionFailure("資料格式錯誤")
+//                    return
+//                }
+//                let photoToData = DataFromFireBase.Base64ToIamge(base64String: photoBase64)
+//                if let data = photoToData.toImageData() {
+//                   // photoImageView.image = UIImage(data: data)
+//                    self.productImageArray.append(UIImage(data:data)!)
+//                }
+//            }
+//        }
+//
+//    }
     
     /*
     // MARK: - Navigation
@@ -174,10 +215,18 @@ class UserDetailVC: UIViewController,UITabBarControllerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
 }
 
-extension UserDetailVC: UICollectionViewDataSource,UICollectionViewDelegate {
+extension UserDetailVC: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productIDArray.count
     }
@@ -192,24 +241,41 @@ extension UserDetailVC: UICollectionViewDataSource,UICollectionViewDelegate {
                 photoImageView.tag = 100
                 cell.contentView.addSubview(photoImageView)
             }
-        ref.child("products").child(productIDArray[indexPath.row]).observeSingleEvent(of: .value) { snapshot in
-            guard let dict = snapshot.value as? [String:Any] else {
-                assertionFailure("資料下載錯誤")
-                return
-            }
-            guard let photoBase64 =  dict["picture"] as? String else
-            {
-                assertionFailure("資料格式錯誤")
-                return
-            }
-            let photoToData = DataFromFireBase.Base64ToIamge(base64String: photoBase64)
-            if let data = photoToData.toImageData() {
-                photoImageView.image = UIImage(data: data)
-            }
-        }
         
+        
+        ref.child("products").child(productIDArray[indexPath.row]).observeSingleEvent(of: .value) { snapshot in
+                guard let dict = snapshot.value as? [String:Any] else {
+                    assertionFailure("資料下載錯誤")
+                    return
+                }
+                guard let photoBase64 =  dict["picture"] as? String else
+                {
+                    assertionFailure("資料格式錯誤")
+                    return
+                }
+                let photoToData = DataFromFireBase.Base64ToIamge(base64String: photoBase64)
+                if let data = photoToData.toImageData() {
+                    photoImageView.image = UIImage(data: data)
+                   
+                }
+             
+            }
+        
+//        photoImageView.image = productImageArray[indexPath.row]
         return cell
+        
+        
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        var view: UICollectionReusableView!
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+            
+            let label = view.viewWithTag(100) as! UILabel
+            label.text = "購物車內容"
+        }
+        return view
+    }
 }

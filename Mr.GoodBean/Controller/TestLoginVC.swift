@@ -60,7 +60,7 @@ class TestLoginVC: UIViewController {
                 DataFromFireBase.shared.productsKeys = Array(products.keys)
                 print("登入商家產品下載完畢")
                 //下載後跳轉
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                        UIView.transition(with: self.view.window!, duration: 0.5, options: .transitionCrossDissolve, animations: {
                            let storyboard = self.storyboard
                            if let storeListVC = storyboard?.instantiateViewController(withIdentifier: "StoreListVC") {
@@ -75,6 +75,7 @@ class TestLoginVC: UIViewController {
                    }
             }
         }
+        
     }
     
     

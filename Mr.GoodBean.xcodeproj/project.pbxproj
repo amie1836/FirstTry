@@ -46,6 +46,7 @@
 		7DE39CAD2AAFFE9600B4A5E9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE39CAC2AAFFE9600B4A5E9 /* Login.swift */; };
 		7DFE60732ADCB1A300C562D3 /* TestLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE60722ADCB1A200C562D3 /* TestLoginVC.swift */; };
 		7DFE60752ADCB3A900C562D3 /* MrGoodBean.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */; };
+		7DFE60E12AE0D64C00C562D3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7DFE60E02AE0D64C00C562D3 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,17 +98,37 @@
 				7D138ECC2ABAE63D00743828 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				7D138ECE2ABAE63D00743828 /* FirebaseDatabase in Frameworks */,
 				7D138EC82ABAE63D00743828 /* FirebaseAnalytics in Frameworks */,
+				7DFE60E12AE0D64C00C562D3 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D5675862AE8C36600BBB8F2 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */,
+				7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */,
+				7DCE5DB92AB940C500EBF851 /* women.jpg */,
+				7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */,
+				7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */,
+				7DB873022AC7DBC2002A10E8 /* product2.png */,
+				7DB873002AC551C1002A10E8 /* product1.jpeg */,
+				7D3D462D2ACD531D00A617EE /* product3.jpg */,
+				7DB873052AC7EC90002A10E8 /* RoyYa.jpg */,
+				7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */,
+				7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		7D6575972AA9B6A000245E7E = {
 			isa = PBXGroup;
 			children = (
 				7D6575A22AA9B6A000245E7E /* Mr.GoodBean */,
 				7D6575A12AA9B6A000245E7E /* Products */,
+				7DFE60DF2AE0D64C00C562D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,17 +153,7 @@
 				7D6575AE2AA9B6A400245E7E /* LaunchScreen.storyboard */,
 				7D6575B12AA9B6A400245E7E /* Info.plist */,
 				7D138EC42ABAE51500743828 /* GoogleService-Info.plist */,
-				7DFE60742ADCB3A800C562D3 /* MrGoodBean.jpg */,
-				7DCE5DB42AB9381100EBF851 /* white_cat_and_dog.jpg */,
-				7DCE5DB62AB9382300EBF851 /* Genshin_activate.jpeg */,
-				7DCE5DB92AB940C500EBF851 /* women.jpg */,
-				7DB872FE2AC55147002A10E8 /* coffeeShop.jpg */,
-				7DB873002AC551C1002A10E8 /* product1.jpeg */,
-				7DB873022AC7DBC2002A10E8 /* product2.png */,
-				7D3D462D2ACD531D00A617EE /* product3.jpg */,
-				7DB873042AC7EC90002A10E8 /* RoyHappy.jpg */,
-				7DB873052AC7EC90002A10E8 /* RoyYa.jpg */,
-				7DB873062AC7EC91002A10E8 /* Roy&Wong.jpg */,
+				7D5675862AE8C36600BBB8F2 /* image */,
 			);
 			path = Mr.GoodBean;
 			sourceTree = "<group>";
@@ -185,6 +196,13 @@
 			path = Communicator;
 			sourceTree = "<group>";
 		};
+		7DFE60DF2AE0D64C00C562D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,6 +225,7 @@
 				7D138ECB2ABAE63D00743828 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				7D138ECD2ABAE63D00743828 /* FirebaseDatabase */,
 				7D138ECF2ABAE63D00743828 /* FirebaseDatabaseSwift */,
+				7DFE60E02AE0D64C00C562D3 /* FirebaseStorage */,
 			);
 			productName = Mr.GoodBean;
 			productReference = 7D6575A02AA9B6A000245E7E /* Mr.GoodBean.app */;
@@ -552,6 +571,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7D138EC62ABAE63D00743828 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
+		};
+		7DFE60E02AE0D64C00C562D3 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D138EC62ABAE63D00743828 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
